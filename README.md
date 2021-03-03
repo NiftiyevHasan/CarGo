@@ -6,9 +6,13 @@ Delivery Match-Up Project
 
 	1. Run `npm install -g
 
+## DB feed
+	`node seed/index.js
+
 ## Run
 
-	`http://localhost:3000/
+	Run `nodemon app.js 
+	Browse from `http://localhost:3000/
 
 
 ### Tasks - Pages
@@ -17,11 +21,15 @@ Delivery Match-Up Project
 - [x] Install dependencies
 - [x] Listen to the Port
 - [x] Create a Home Page
-- [ ] Add Navbar
 - [ ] Create Show Page
 - [ ] Add new request
 - [ ] View Individual request to bid
 - [ ] Routes
+
+### Basic Style Updates
+- [ ] Add Navbar
+- [ ] Create Partials
+- [ ] Add Navbar
 - [ ] Create layouts/boilerplate
 
 ### Users - Auth
@@ -33,7 +41,7 @@ Delivery Match-Up Project
 - [ ] Users
 - [ ] Requests
 - [ ] Chat/Inbox
-- [ ] Populate/Seed DB
+- [x] Populate/Seed DB
 
 ### Testing
 - [ ] Error Handling - Middleware
