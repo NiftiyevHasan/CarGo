@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const CargoSchema = new schema({
-    title: String,
+const CargoSchema = new Schema({
+    type: String,
     weight: Number,
     location: String,
     destination: String,
