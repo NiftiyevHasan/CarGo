@@ -1,7 +1,28 @@
 <% layout('/layout/boilerplate') %>
     <h1>All Cargo Posts</h1>
     <% for (let cargo of cargos) { %>
-        <li><a href="/cargopanel/<%=cargo._id%>">
-                <%= cargo.type %>
-            </a></li>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<%=cargo.image%>" class="img-fluid" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%=cargo.type%>
+
+                        </h5>
+                        <p class="card-text">
+                            <%=cargo.description%>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%=cargo.location%>
+                            </small>
+                        </p>
+                        <a class="btn btn-primary" href=" /cargopanel/<%=cargo.id%>"> View <%=cargo.type%></a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <% } %>

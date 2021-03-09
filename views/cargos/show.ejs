@@ -1,11 +1,34 @@
 <% layout('/layout/boilerplate') %>
-
-    <h1>
-        <%= cargo.type %>
-    </h1>
-    <h3>
-        <%= cargo.location %> - <%= cargo.destination %>
-    </h3>
-
-    <a href="/cargopanel/<%=cargo._id %>/edit">Edit</a>
-    <a href="/cargopanel">Back</a>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card mb-3">
+                <img src="<%= cargo.image %>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= cargo.type %>
+                    </h5>
+                    <p class="card-text">
+                        <%= cargo.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Tom Kalinsky</li>
+                    <li class="list-group-item text-muted">
+                        <%= cargo.location %> - <%= cargo.destination %>
+                    </li>
+                    <li class="list-group-item">
+                        <%=cargo._id %>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a href="/cargopanel/<%=cargo._id %>/edit" class="card-link btn btn-outline-success">Edit</a>
+                    <form class="d-inline" action="/cargopanel/<%=cargo._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    2 days ago
+                </div>
+            </div>
+        </div>
+    </div>

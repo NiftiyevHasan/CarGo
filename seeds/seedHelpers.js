@@ -2,7 +2,7 @@ module.exports.type = [
     'Document',
     'Food',
     'Luggage',
-    'Crate',
+    'Fragrance',
     'Box',
     'Pet',
     'furniture',

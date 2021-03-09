@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const CargoSchema = new Schema({
     type: String,
+    image: String,
     weight: Number,
     location: String,
     destination: String,

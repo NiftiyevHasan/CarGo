@@ -28,7 +28,9 @@ const seedDB = async () => {
             type: `${sampleArray(type)}`,
             weight: random100 + 1,
             location: `${cities[random100 * 10].city}`,
-            destination: `${cities[(random100 * 10 + 150) % 1000].city}`
+            destination: `${cities[(random100 * 10 + 150) % 1000].city}`,
+            image: 'https://source.unsplash.com/featured/?package',
+            description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. "
         })
         await randomCargo.save();
     }

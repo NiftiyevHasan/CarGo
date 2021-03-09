@@ -21,16 +21,16 @@ Delivery Match-Up Project
 - [x] Install dependencies
 - [x] Listen to the Port
 - [x] Create a Home Page
-- [ ] Create Show Page
-- [ ] Add new request
+- [x] Create Show Page
+- [x] Add new request
 - [ ] View Individual request to bid
 - [ ] Routes
+- [ ] Add HomePage
 
 ### Basic Style Updates
-- [ ] Add Navbar
-- [ ] Create Partials
-- [ ] Add Navbar
-- [ ] Create layouts/boilerplate
+- [x] Add Navbar
+- [x] Create Partials
+- [x] Create layouts/boilerplate
 
 ### Users - Auth
 - [ ] Admin
@@ -43,8 +43,11 @@ Delivery Match-Up Project
 - [ ] Chat/Inbox
 - [x] Populate/Seed DB
 
-### Testing
+### Testing / Security
 - [ ] Error Handling - Middleware
 - [ ] Client side validation 
 - [ ] Server Side Validation
 - [ ] Location Cookies
+- [ ] Prevent DB Injections
+- [ ] Prevent XSS attacks w. JOI ext
+- [ ] Restrict all outside data usage/load/scripts
