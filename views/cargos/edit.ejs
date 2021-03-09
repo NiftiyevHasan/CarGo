@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<% layout('/layout/boilerplate') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Cargo</title>
-</head>
-
-<body>
     </form>
     <h1>Edit Cargo Post</h1>
     <form action="/cargopanel/<%=cargo._id%>?_method=PUT" method="POST">
@@ -34,6 +25,3 @@
     <form action="/cargopanel/<%=cargo._id%>?_method=DELETE" method="POST">
         <button>Delete</button>
     </form>
-</body>
-
-</html>
