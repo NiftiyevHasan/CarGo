@@ -21,7 +21,7 @@ const sampleArray = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Cargo.deleteMany({});
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 50; index++) {
         const random100 = Math.floor(Math.random() * 100);
 
         const randomCargo = new Cargo({

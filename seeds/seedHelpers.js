@@ -1,9 +1,9 @@
 module.exports.type = [
     'Document',
     'Food',
-    'luggage',
+    'Luggage',
     'Crate',
-    'box',
+    'Box',
     'Pet',
     'furniture',
     'Car part',
