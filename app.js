@@ -3,8 +3,11 @@ const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const catchAsync = require('./utils/catchAsync');
+const ExpressError = require('./utils/ExpressErrors');
 const Cargo = require('./models/cargo');
-const { response } = require('express');
+const { response, request } = require('express');
+const { nextTick } = require('process');
 
 
 mongoose.connect('mongodb://localhost:27017/cargoapp', {
@@ -34,42 +37,50 @@ app.get('/', (request, response) => {
 	response.render('home');
 })
 
-app.get('/cargopanel', async (request, response) => {
+app.get('/cargopanel', catchAsync(async (request, response) => {
 	const cargos = await Cargo.find({});
 	response.render('cargos/index', { cargos })
-})
+}))
 
-app.post('/cargopanel', async (request, response) => {
+app.post('/cargopanel', catchAsync(async (request, response) => {
 	const cargo = new Cargo(request.body.cargo);
 	await cargo.save();
 	response.redirect(`/cargopanel/${cargo._id}`)
-})
+}))
 
 app.get('/cargopanel/new', (request, response) => {
 	response.render('cargos/new');
 })
 
-app.get('/cargopanel/:id/edit', async (request, response) => {
+app.get('/cargopanel/:id/edit', catchAsync(async (request, response) => {
 	const cargo = await Cargo.findById(request.params.id);
 	response.render('cargos/edit', { cargo });
-})
+}))
 
-app.get('/cargopanel/:id', async (request, response) => {
+app.get('/cargopanel/:id', catchAsync(async (request, response) => {
 	const cargo = await Cargo.findById(request.params.id);
 	response.render("cargos/show", { cargo });
-})
+}))
 
-app.put('/cargopanel/:id', async (request, response) => {
+app.put('/cargopanel/:id', catchAsync(async (request, response) => {
 	const cargo = await Cargo.findByIdAndUpdate(request.params.id, { ...request.body.cargo });
 	response.redirect(`/cargopanel/${cargo._id}`);
-})
+}))
 
-app.delete('/cargopanel/:id', async (request, response) => {
+app.delete('/cargopanel/:id', catchAsync(async (request, response) => {
 	await Cargo.findByIdAndDelete(request.params.id);
 	response.redirect('/cargopanel');
+}))
+
+app.all('*', (request, response) => {
+	next(new ExpressError('Page Not Found', 404));
 })
 
-
+app.use((error, request, response, next) => {
+	const { statusCode = 500 } = error;
+	if (!error.message) error.message = 'Ooops Something went wrong!'
+	response.status(statusCode).render('error', { error });
+})
 app.listen(3000, () => {
 	console.log('~~~~~~~~ LISTENING ON PORT 3000! ~~~~~~~~');
 })
