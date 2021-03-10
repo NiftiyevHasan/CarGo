@@ -2,13 +2,11 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const { cargoSchema } = require('./schemas.js');
 const methodOverride = require('method-override');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressErrors');
 const Cargo = require('./models/cargo');
-const { response, request } = require('express');
-const { nextTick } = require('process');
-
 
 mongoose.connect('mongodb://localhost:27017/cargoapp', {
 	useNewUrlParser: true,
@@ -33,6 +31,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+const validateCargo = (request, respond, next) => {
+	const { error } = cargoSchema.validate(request.body);
+	if (error) {
+		const message = error.details.map(el => el.message).join(',')
+		throw new ExpressError(message, 404)
+	} else {
+		next()
+	}
+}
+
 app.get('/', (request, response) => {
 	response.render('home');
 })
@@ -42,7 +50,7 @@ app.get('/cargopanel', catchAsync(async (request, response) => {
 	response.render('cargos/index', { cargos })
 }))
 
-app.post('/cargopanel', catchAsync(async (request, response) => {
+app.post('/cargopanel', validateCargo, catchAsync(async (request, response) => {
 	const cargo = new Cargo(request.body.cargo);
 	await cargo.save();
 	response.redirect(`/cargopanel/${cargo._id}`)
@@ -62,7 +70,7 @@ app.get('/cargopanel/:id', catchAsync(async (request, response) => {
 	response.render("cargos/show", { cargo });
 }))
 
-app.put('/cargopanel/:id', catchAsync(async (request, response) => {
+app.put('/cargopanel/:id', validateCargo, catchAsync(async (request, response) => {
 	const cargo = await Cargo.findByIdAndUpdate(request.params.id, { ...request.body.cargo });
 	response.redirect(`/cargopanel/${cargo._id}`);
 }))
