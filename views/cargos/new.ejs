@@ -4,35 +4,56 @@
         <h1 class="text-center">Add New Cargo</h1>
         <div class="col-6 offset-3">
 
-            <form action="/cargopanel" method="POST">
+            <form action="/cargopanel" method="POST" class="validated-form" novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="type">Add Cargo</label>
-                    <input class="form-control" type="text" id="type" name="cargo[type]" placeholder="Cargo">
+                    <input class="form-control" type="text" id="type" name="cargo[type]" placeholder="Cargo" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="location">Location</label>
-                    <input class="form-control" type="text" id="location" name="cargo[location]" placeholder="From">
+                    <input class="form-control" type="text" id="location" name="cargo[location]" placeholder="From"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="destination">Destination</label>
-                    <input class="form-control" type="text" id="destination" name="cargo[destination]" placeholder="To">
+                    <input class="form-control" type="text" id="destination" name="cargo[destination]" placeholder="To"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="weight">Weight</label>
                     <div class="input-group">
                         <span class="input-group-text" id="weight-label">kg</span>
                         <input type="text" class="form-control" id="weight" placeholder="0.00" aria-label="price"
-                            aria-describedby="weight-label" name="cargo[weight]">
+                            aria-describedby="weight-label" name="cargo[weight]" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="image">Image</label>
-                    <input class="form-control" type="text" id="image" name="cargo[image]" placeholder="Link for Image">
+                    <input class="form-control" type="text" id="image" name="cargo[image]" placeholder="Link for Image"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
                     <textarea class="form-control" type="text" id="description" name="cargo[description]"
-                        placeholder="Content"></textarea>
+                        placeholder="Content" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3 d-inline">
                     <button class="btn btn-success">Add Cargo</button>

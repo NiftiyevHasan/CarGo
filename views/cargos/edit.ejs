@@ -4,39 +4,54 @@
         <h1 class="text-center">Edit Cargo</h1>
         <div class="col-6 offset-3">
 
-            <form action="/cargopanel/<%=cargo._id%>?_method=PUT" method="POST">
+            <form action="/cargopanel/<%=cargo._id%>?_method=PUT" method="POST" class="validated-form" novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="type">Edit Cargo</label>
                     <input class="form-control" type="text" id="type" name="cargo[type]" placeholder="Cargo"
-                        value="<%=cargo.type%>">
+                        value="<%=cargo.type%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="location">Location</label>
                     <input class="form-control" type="text" id="location" name="cargo[location]" placeholder="From"
-                        value="<%=cargo.location%>">
+                        value="<%=cargo.location%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="destination">Destination</label>
                     <input class="form-control" type="text" id="destination" name="cargo[destination]" placeholder="To"
-                        value="<%=cargo.destination%>">
+                        value="<%=cargo.destination%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="weight">Weight</label>
                     <div class="input-group">
                         <span class="input-group-text" id="weight-label">kg</span>
                         <input type="text" class="form-control" id="weight" placeholder="0.00" aria-label="price"
-                            aria-describedby="weight-label" name="cargo[weight]" value="<%=cargo.weight%>">
+                            aria-describedby="weight-label" name="cargo[weight]" value="<%=cargo.weight%>" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="image">Image</label>
                     <input class="form-control" type="text" id="image" name="cargo[image]" placeholder="Link for Image"
-                        value="<%=cargo.image%>">
+                        value="<%=cargo.image%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
                     <textarea class="form-control" type="text" id="description" name="cargo[description]"
-                        placeholder="Content"><%=cargo.description%></textarea>
+                        placeholder="Content" required><%=cargo.description%></textarea>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-info">Update Cargo</button>
