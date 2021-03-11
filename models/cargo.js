@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Bid = require('./bid');
 const Schema = mongoose.Schema;
 
 const CargoSchema = new Schema({
@@ -14,6 +15,16 @@ const CargoSchema = new Schema({
             ref: "Bid"
         }
     ]
+})
+
+CargoSchema.post('findOneAndDelete', async function (deletedCargoData) {
+    if (deletedCargoData) {
+        await Bid.deleteMany({
+            _id: {
+                $in: deletedCargoData.bids
+            }
+        })
+    }
 })
 
 module.exports = mongoose.model('Cargo', CargoSchema);
