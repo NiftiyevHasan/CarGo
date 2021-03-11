@@ -7,7 +7,13 @@ const CargoSchema = new Schema({
     weight: Number,
     location: String,
     destination: String,
-    description: String
+    description: String,
+    bids: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Bid"
+        }
+    ]
 })
 
 module.exports = mongoose.model('Cargo', CargoSchema);

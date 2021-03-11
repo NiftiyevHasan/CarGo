@@ -1,6 +1,6 @@
 <% layout('/layout/boilerplate') %>
     <div class="row">
-        <div class="col-6 offset-3">
+        <div class="col-6">
             <div class="card mb-3">
                 <img src="<%= cargo.image %>" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -31,4 +31,48 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-6" mb-3>
+            <h3>Leave a Bid</h3>
+            <form action="/cargopanel/<%=cargo._id%>/bids" method="POST" class="mb-3 validated-form" novalidate>
+                <div class="input-group mb-3">
+
+                    <label class="form-label" for="body">
+
+                    </label>
+                    <textarea class="form-control" type="text" id="body" name="bid[message]"
+                        placeholder="Additional Notes" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="number" class="form-control" placeholder="Bidding available: Enter bid amount"
+                        aria-label="Bid Amount" aria-describedby="button-addon2" name="bid[amount]" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <button class="btn btn-outline-success" type="submit" id="button-addon2">
+                        <span class="spinner-border spinner-border-sm" role="submit" aria-hidden="true"></span>
+                        Bid Now...
+
+                </div>
+            </form>
+            <% for (let bid of cargo.bids) { %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%=bid.amount %>
+                        </h5>
+                        <p class="card-text">
+                            <%=bid.message %>
+                        </p>
+                    </div>
+                    <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </div>
+                <% } %>
+        </div>
+
     </div>

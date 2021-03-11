@@ -11,3 +11,10 @@ module.exports.cargoSchema = Joi.object({
 
     }).required()
 })
+
+module.exports.bidSchema = Joi.object({
+    bid: Joi.object({
+        amount: Joi.number().required().min(10),
+        message: Joi.string().required()
+    }).required()
+})
