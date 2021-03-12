@@ -8,6 +8,8 @@ const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressErrors');
 const Cargo = require('./models/cargo');
 const Bid = require('./models/bid');
+const cargos = require('./routes/cargos');
+const bids = require('./routes/bids');
 
 mongoose.connect('mongodb://localhost:27017/cargoapp', {
 	useNewUrlParser: true,
@@ -31,16 +33,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use('/cargopanel', cargos);
+app.use('/cargopanel/:id/bids', bids);
 
-const validateCargo = (request, respond, next) => {
-	const { error } = cargoSchema.validate(request.body);
-	if (error) {
-		const message = error.details.map(el => el.message).join(',')
-		throw new ExpressError(message, 404)
-	} else {
-		next()
-	}
-}
+
 
 const validateBid = (request, respond, next) => {
 	const { error } = bidSchema.validate(request.body);
@@ -56,20 +52,6 @@ app.get('/', (request, response) => {
 	response.render('home');
 })
 
-app.get('/cargopanel', catchAsync(async (request, response) => {
-	const cargos = await Cargo.find({});
-	response.render('cargos/index', { cargos })
-}))
-
-app.post('/cargopanel', validateCargo, catchAsync(async (request, response) => {
-	const cargo = new Cargo(request.body.cargo);
-	await cargo.save();
-	response.redirect(`/cargopanel/${cargo._id}`)
-}))
-
-app.get('/cargopanel/new', (request, response) => {
-	response.render('cargos/new');
-})
 
 app.post('/cargopanel/:id/bids', validateBid, catchAsync(async (request, response) => {
 	const cargo = await Cargo.findById(request.params.id);
@@ -80,20 +62,6 @@ app.post('/cargopanel/:id/bids', validateBid, catchAsync(async (request, respons
 	response.redirect(`/cargopanel/${cargo._id}`)
 }))
 
-app.get('/cargopanel/:id/edit', catchAsync(async (request, response) => {
-	const cargo = await Cargo.findById(request.params.id);
-	response.render('cargos/edit', { cargo });
-}))
-
-app.get('/cargopanel/:id', catchAsync(async (request, response) => {
-	const cargo = await Cargo.findById(request.params.id).populate('bids');
-	response.render("cargos/show", { cargo });
-}))
-
-app.put('/cargopanel/:id', validateCargo, catchAsync(async (request, response) => {
-	const cargo = await Cargo.findByIdAndUpdate(request.params.id, { ...request.body.cargo });
-	response.redirect(`/cargopanel/${cargo._id}`);
-}))
 
 
 app.delete('/cargopanel/:id/bids/:bidId', catchAsync(async (request, response) => {
@@ -102,10 +70,7 @@ app.delete('/cargopanel/:id/bids/:bidId', catchAsync(async (request, response) =
 	await Bid.findByIdAndDelete(bidId);
 	response.redirect(`/cargopanel/${id}`);
 }))
-app.delete('/cargopanel/:id', catchAsync(async (request, response) => {
-	await Cargo.findByIdAndDelete(request.params.id);
-	response.redirect('/cargopanel');
-}))
+
 
 app.all('*', (request, response, next) => {
 	next(new ExpressError('Page Not Found', 404));
