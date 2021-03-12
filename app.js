@@ -5,6 +5,7 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressErrors');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 const cargos = require('./routes/cargos');
 const bids = require('./routes/bids');
@@ -45,6 +46,13 @@ const sessionConfig = {
 }
 
 app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((request, response, next) => {
+	response.locals.success = request.flash('success');
+	response.locals.error = request.flash('error');
+	next();
+})
 
 app.use('/cargopanel', cargos);
 app.use('/cargopanel/:id/bids', bids);

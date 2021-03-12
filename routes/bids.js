@@ -22,6 +22,7 @@ router.post('/', validateBid, catchAsync(async (request, response) => {
     cargo.bids.push(bid);
     await bid.save();
     await cargo.save();
+    request.flash('success', 'Successfully posted a new bid');
     response.redirect(`/cargopanel/${cargo._id}`)
 }))
 
@@ -31,6 +32,7 @@ router.delete('/:bidId', catchAsync(async (request, response) => {
     const { id, bidId } = request.params;
     await Cargo.findByIdAndUpdate(id, { $pull: { bids: bidId } })
     await Bid.findByIdAndDelete(bidId);
+    request.flash('success', 'Successfully deleted offered bid');
     response.redirect(`/cargopanel/${id}`);
 }))
 
