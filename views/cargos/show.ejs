@@ -1,4 +1,5 @@
 <% layout('/layout/boilerplate') %>
+    <link rel="stylesheet" href="/stylesheets/stars.css">
     <div class="row">
         <div class="col-6">
             <div class="card mb-3">
@@ -71,6 +72,9 @@
                             </h5>
                             <h6 class="card-subtitle mb-2 text-muted">
                                 by <%= bid.author.username %>
+                                    <p class="starability-result" data-rating="3">
+                                        <!-- bid.author.rating -->
+                                    </p>
                             </h6>
                             <p class="card-text">
                                 <%=bid.message %>
