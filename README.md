@@ -24,7 +24,7 @@ Delivery Match-Up Project
 - [x] Create Show Page
 - [x] Add new request
 - [ ] View Individual request to bid
-- [ ] Routes
+- [x] Routes
 - [ ] Add HomePage
 
 ### Basic Style Updates
@@ -38,16 +38,17 @@ Delivery Match-Up Project
 - [ ] Driver
 
 ### Database Models
-- [ ] Users
-- [ ] Requests
+- [x] Users
+- [x] Requests
 - [ ] Chat/Inbox
 - [x] Populate/Seed DB
 
 ### Testing / Security
-- [ ] Error Handling - Middleware
-- [ ] Client side validation 
-- [ ] Server Side Validation
+- [x] Error Handling - Middleware
+- [x] Client side validation 
+- [x] Server Side Validation
 - [ ] Location Cookies
 - [ ] Prevent DB Injections
 - [ ] Prevent XSS attacks w. JOI ext
 - [ ] Restrict all outside data usage/load/scripts
+- [ ] Address the hacking server in edit route source 512 (important !)

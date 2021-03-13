@@ -4,6 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressErrors');
 const Cargo = require('../models/cargo');
 const { cargoSchema } = require('../schemas.js');
+const { isLoggedIn } = require('../middlewares');
 
 const validateCargo = (request, respond, next) => {
     const { error } = cargoSchema.validate(request.body);
@@ -21,7 +22,7 @@ router.get('/', catchAsync(async (request, response) => {
     response.render('cargos/index', { cargos })
 }))
 
-router.post('/', validateCargo, catchAsync(async (request, response) => {
+router.post('/', isLoggedIn, validateCargo, catchAsync(async (request, response) => {
     const cargo = new Cargo(request.body.cargo);
     await cargo.save();
     request.flash('success', 'Successfully created new cargo request');
@@ -53,13 +54,13 @@ router.get('/:id/edit', catchAsync(async (request, response) => {
 
 
 
-router.put('/:id', validateCargo, catchAsync(async (request, response) => {
+router.put('/:id', isLoggedIn, validateCargo, catchAsync(async (request, response) => {
     const cargo = await Cargo.findByIdAndUpdate(request.params.id, { ...request.body.cargo });
     request.flash('success', 'Successfully updated cargo details');
     response.redirect(`/cargopanel/${cargo._id}`);
 }))
 
-router.delete('/:id', catchAsync(async (request, response) => {
+router.delete('/:id', isLoggedIn, catchAsync(async (request, response) => {
     await Cargo.findByIdAndDelete(request.params.id);
     request.flash('success', 'Successfully deleted cargo');
     response.redirect('/cargopanel');

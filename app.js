@@ -6,9 +6,13 @@ const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressErrors');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
-const cargos = require('./routes/cargos');
-const bids = require('./routes/bids');
+const usersRoute = require('./routes/users')
+const cargosRoute = require('./routes/cargos');
+const bidsRoute = require('./routes/bids');
 
 mongoose.connect('mongodb://localhost:27017/cargoapp', {
 	useNewUrlParser: true,
@@ -48,14 +52,25 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+
 app.use((request, response, next) => {
+	response.locals.currentUser = request.user;
 	response.locals.success = request.flash('success');
 	response.locals.error = request.flash('error');
 	next();
 })
 
-app.use('/cargopanel', cargos);
-app.use('/cargopanel/:id/bids', bids);
+
+app.use('/', usersRoute);
+app.use('/cargopanel', cargosRoute);
+app.use('/cargopanel/:id/bids', bidsRoute);
 
 
 
