@@ -5,6 +5,10 @@ const bidSchema = new Schema({
     amount: Number,
     status: String,
     message: String,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 
 })
 

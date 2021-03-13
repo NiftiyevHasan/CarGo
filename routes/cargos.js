@@ -3,18 +3,7 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressErrors');
 const Cargo = require('../models/cargo');
-const { cargoSchema } = require('../schemas.js');
-const { isLoggedIn } = require('../middlewares');
-
-const validateCargo = (request, respond, next) => {
-    const { error } = cargoSchema.validate(request.body);
-    if (error) {
-        const message = error.details.map(el => el.message).join(',')
-        throw new ExpressError(message, 404)
-    } else {
-        next()
-    }
-}
+const { isLoggedIn, isAuthor, validateCargo } = require('../middlewares');
 
 
 router.get('/', catchAsync(async (request, response) => {
@@ -24,6 +13,7 @@ router.get('/', catchAsync(async (request, response) => {
 
 router.post('/', isLoggedIn, validateCargo, catchAsync(async (request, response) => {
     const cargo = new Cargo(request.body.cargo);
+    cargo.author = request.user._id;
     await cargo.save();
     request.flash('success', 'Successfully created new cargo request');
     response.redirect(`/cargopanel/${cargo._id}`)
@@ -34,7 +24,7 @@ router.get('/new', (request, response) => {
 })
 
 router.get('/:id', catchAsync(async (request, response) => {
-    const cargo = await Cargo.findById(request.params.id).populate('bids');
+    const cargo = await (await Cargo.findById(request.params.id).populate('bids').populate('author'));
     if (!cargo) {
         request.flash('error', 'Can not find requested cargo');
         return response.redirect('/cargopanel');
@@ -43,7 +33,7 @@ router.get('/:id', catchAsync(async (request, response) => {
 }))
 
 
-router.get('/:id/edit', catchAsync(async (request, response) => {
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(async (request, response) => {
     const cargo = await Cargo.findById(request.params.id);
     if (!cargo) {
         request.flash('error', 'Can not find requested cargo');
@@ -53,14 +43,13 @@ router.get('/:id/edit', catchAsync(async (request, response) => {
 }))
 
 
-
-router.put('/:id', isLoggedIn, validateCargo, catchAsync(async (request, response) => {
+router.put('/:id', isLoggedIn, isAuthor, validateCargo, catchAsync(async (request, response) => {
     const cargo = await Cargo.findByIdAndUpdate(request.params.id, { ...request.body.cargo });
     request.flash('success', 'Successfully updated cargo details');
     response.redirect(`/cargopanel/${cargo._id}`);
 }))
 
-router.delete('/:id', isLoggedIn, catchAsync(async (request, response) => {
+router.delete('/:id', isLoggedIn, isAuthor, catchAsync(async (request, response) => {
     await Cargo.findByIdAndDelete(request.params.id);
     request.flash('success', 'Successfully deleted cargo');
     response.redirect('/cargopanel');

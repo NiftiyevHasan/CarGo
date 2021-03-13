@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Bid = require('./bid');
+const user = require('./user');
 const Schema = mongoose.Schema;
 
 const CargoSchema = new Schema({
@@ -9,6 +10,10 @@ const CargoSchema = new Schema({
     location: String,
     destination: String,
     description: String,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     bids: [
         {
             type: Schema.Types.ObjectId,

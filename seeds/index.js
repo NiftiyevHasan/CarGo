@@ -27,6 +27,7 @@ const seedDB = async () => {
         const randomCargo = new Cargo({
             type: `${sampleArray(type)}`,
             weight: random100 + 1,
+            author: '604be7de75ced91c66e126dc',
             location: `${cities[random100 * 10].city}`,
             destination: `${cities[(random100 * 10 + 150) % 1000].city}`,
             image: 'https://source.unsplash.com/featured/?package',
