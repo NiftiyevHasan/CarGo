@@ -36,6 +36,7 @@
         </div>
 
         <div class="col-6" mb-3>
+
             <h3>Leave a Bid</h3>
             <form action="/cargopanel/<%=cargo._id%>/bids" method="POST" class="mb-3 validated-form" novalidate>
                 <div class="input-group mb-3">
@@ -61,21 +62,28 @@
 
                 </div>
             </form>
-            <% for (let bid of cargo.bids) { %>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%=bid.amount %>
-                        </h5>
-                        <p class="card-text">
-                            <%=bid.message %>
-                        </p>
+            <% if(currentUser && cargo.author.equals(currentUser._id)){ %>
+                <% for (let bid of cargo.bids) { %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Offer: $ <%=bid.amount %>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                by <%= bid.author.username %>
+                            </h6>
+                            <p class="card-text">
+                                <%=bid.message %>
+                            </p>
+                        </div>
+                        <% if(currentUser && bid.author.equals(currentUser._id)){ %>
+                            <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST">
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                            <% } %>
                     </div>
-                    <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST">
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </div>
-                <% } %>
+                    <% } %>
         </div>
+        <% } %>
 
     </div>

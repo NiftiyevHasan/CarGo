@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressErrors');
 const Cargo = require('../models/cargo');
 const { isLoggedIn, isAuthor, validateCargo } = require('../middlewares');
 
@@ -24,7 +23,12 @@ router.get('/new', (request, response) => {
 })
 
 router.get('/:id', catchAsync(async (request, response) => {
-    const cargo = await (await Cargo.findById(request.params.id).populate('bids').populate('author'));
+    const cargo = await (await Cargo.findById(request.params.id).populate({
+        path: 'bids',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author'));
     if (!cargo) {
         request.flash('error', 'Can not find requested cargo');
         return response.redirect('/cargopanel');

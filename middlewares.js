@@ -1,6 +1,7 @@
 const { cargoSchema, bidSchema } = require('./schemas.js');
 const ExpressError = require('./utils/ExpressErrors');
 const Cargo = require('./models/cargo');
+const Bid = require('./models/bid');
 
 
 module.exports.isLoggedIn = (request, response, next) => {
@@ -31,6 +32,15 @@ module.exports.isAuthor = async (request, response, next) => {
     next();
 }
 
+module.exports.isBidAuthor = async (request, response, next) => {
+    const { id, bidId } = request.params;
+    const bid = await Bid.findById(bidId);
+    if (!bid.author.equals(request.user._id)) {
+        request.flash('error', 'You dont have permission to perform specified action');
+        return response.redirect(`/cargopanel/${id}`);
+    }
+    next();
+}
 module.exports.validateBid = (request, respond, next) => {
     const { error } = bidSchema.validate(request.body);
     if (error) {
