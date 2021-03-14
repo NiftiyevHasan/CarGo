@@ -15,6 +15,17 @@ ImageSchema.virtual('thumbnail').get(function () {
 const CargoSchema = new Schema({
     type: String,
     images: [ImageSchema],
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     weight: Number,
     location: String,
     destination: String,

@@ -1,4 +1,7 @@
 const Cargo = require('../models/cargo');
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require('../cloudinary')
 
 module.exports.index = async (request, response) => {
@@ -11,9 +14,13 @@ module.exports.renderNewCargoForm = (request, response) => {
 }
 
 module.exports.createNewCargo = async (request, response) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: request.body.cargo.location,
+        limit: 1
+    }).send()
     const cargo = new Cargo(request.body.cargo);
+    cargo.geometry = geoData.body.features[0].geometry;
     cargo.images = request.files.map(file => ({ url: file.path, filename: file.filename }));
-    console.log(cargo);
     cargo.author = request.user._id;
     await cargo.save();
     request.flash('success', 'Successfully created new cargo request');

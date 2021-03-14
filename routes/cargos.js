@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const Cargo = require('../models/cargo');
 const cargos = require('../controllers/cargos');
 const { isLoggedIn, isAuthor, validateCargo } = require('../middlewares');
 const multer = require('multer');

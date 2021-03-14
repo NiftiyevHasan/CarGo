@@ -4,7 +4,12 @@
         <div class="card mb-3">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="<%=cargo.images[2].url%>" class="img-fluid" alt="">
+                    <%if(cargo.images.length) {%>
+                    <img src="<%=cargo.images[0].url%>" class="img-fluid" alt="">
+                    <% }else {%>
+                        <img class="img-fluid" alt=""
+                        src="https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/dgmvebjmkwkubyw8nrgc.jpg">
+                    <% } %>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -26,3 +31,4 @@
             </div>
         </div>
         <% } %>
+
