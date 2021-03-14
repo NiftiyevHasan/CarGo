@@ -4,7 +4,8 @@
         <h1 class="text-center">Edit Cargo</h1>
         <div class="col-6 offset-3">
 
-            <form action="/cargopanel/<%=cargo._id%>?_method=PUT" method="POST" class="validated-form" novalidate>
+            <form action="/cargopanel/<%=cargo._id%>?_method=PUT" method="POST" class="validated-form" novalidate
+                enctype="multipart/form-data" multiple>
                 <div class="mb-3">
                     <label class="form-label" for="type">Edit Cargo</label>
                     <input class="form-control" type="text" id="type" name="cargo[type]" placeholder="Cargo"
@@ -40,18 +41,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="image">Image</label>
-                    <input class="form-control" type="text" id="image" name="cargo[image]" placeholder="Link for Image"
-                        value="<%=cargo.image%>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="image" name="image" multiple>
+                    <label class="input-group-text" for="image">Upload</label>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
                     <textarea class="form-control" type="text" id="description" name="cargo[description]"
                         placeholder="Content" required><%=cargo.description%></textarea>
+                </div>
+                <div class="mb-3">
+                    <% cargo.images.forEach((image,i)=> { %>
+                        <img src="<%=image.thumbnail%>" class="img-thumbnail" alt="">
+                        <div class="form-check-inline">
+                            <input type="checkbox" name="deleteImages[]" value="<%= image.filename%>" id="image-<%=i%>">
+                        </div>
+                        <label for="image-<%=i%>">Delete</label>
+                        <% }); %>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-info">Update Cargo</button>

@@ -4,7 +4,7 @@
         <h1 class="text-center">Add New Cargo</h1>
         <div class="col-6 offset-3">
 
-            <form action="/cargopanel" method="POST" class="validated-form" novalidate>
+            <form action="/cargopanel" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="type">Add Cargo</label>
                     <input class="form-control" type="text" id="type" name="cargo[type]" placeholder="Cargo" required>
@@ -39,13 +39,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="image">Image</label>
-                    <input class="form-control" type="text" id="image" name="cargo[image]" placeholder="Link for Image"
-                        required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="image" name="image" multiple>
+                    <label class="input-group-text" for="image">Upload</label>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
@@ -55,6 +51,9 @@
                         Looks good!
                     </div>
                 </div>
+
+
+
                 <div class="mb-3 d-inline">
                     <button class="btn btn-success">Add Cargo</button>
                     <a class="btn btn-danger" href="/cargopanel">Cancel</a>

@@ -30,7 +30,24 @@ const seedDB = async () => {
             author: '604be7de75ced91c66e126dc',
             location: `${cities[random100 * 10].city}`,
             destination: `${cities[(random100 * 10 + 150) % 1000].city}`,
-            image: 'https://source.unsplash.com/featured/?package',
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/nfbnkmregln1jnxcaizu.jpg',
+                    filename: 'CarGO/nfbnkmregln1jnxcaizu'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/bekbqyp4lmotwesexwtw.jpg',
+                    filename: 'CarGO/bekbqyp4lmotwesexwtw'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/dgmvebjmkwkubyw8nrgc.jpg',
+                    filename: 'CarGO/dgmvebjmkwkubyw8nrgc'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/mtn6mvdumshvor7bsbvd.jpg',
+                    filename: 'CarGO/mtn6mvdumshvor7bsbvd'
+                }
+            ],
             description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. "
         })
         await randomCargo.save();

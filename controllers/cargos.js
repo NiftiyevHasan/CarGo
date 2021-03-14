@@ -1,5 +1,5 @@
 const Cargo = require('../models/cargo');
-
+const { cloudinary } = require('../cloudinary')
 
 module.exports.index = async (request, response) => {
     const cargos = await Cargo.find({});
@@ -12,6 +12,8 @@ module.exports.renderNewCargoForm = (request, response) => {
 
 module.exports.createNewCargo = async (request, response) => {
     const cargo = new Cargo(request.body.cargo);
+    cargo.images = request.files.map(file => ({ url: file.path, filename: file.filename }));
+    console.log(cargo);
     cargo.author = request.user._id;
     await cargo.save();
     request.flash('success', 'Successfully created new cargo request');
@@ -43,6 +45,15 @@ module.exports.renderEditCargoForm = async (request, response) => {
 
 module.exports.updateCargo = async (request, response) => {
     const cargo = await Cargo.findByIdAndUpdate(request.params.id, { ...request.body.cargo });
+    const images = request.files.map(file => ({ url: file.path, filename: file.filename }));
+    cargo.images.push(...images);
+    await cargo.save();
+    if (request.body.deleteImages) {
+        for (let filename of request.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        await cargo.updateOne({ $pull: { images: { filename: { $in: request.body.deleteImages } } } })
+    }
     request.flash('success', 'Successfully updated cargo details');
     response.redirect(`/cargopanel/${cargo._id}`);
 }

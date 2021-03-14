@@ -3,9 +3,18 @@ const Bid = require('./bid');
 const user = require('./user');
 const Schema = mongoose.Schema;
 
+
+const ImageSchema = new Schema({
+    url: String,
+    filename: String
+});
+
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload', '/upload/w_200');
+});
 const CargoSchema = new Schema({
     type: String,
-    image: String,
+    images: [ImageSchema],
     weight: Number,
     location: String,
     destination: String,
