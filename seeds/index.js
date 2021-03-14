@@ -21,7 +21,7 @@ const sampleArray = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Cargo.deleteMany({});
-    for (let index = 0; index < 50; index++) {
+    for (let index = 0; index < 500; index++) {
         const random100 = Math.floor(Math.random() * 100);
 
         const randomCargo = new Cargo({
@@ -30,9 +30,11 @@ const seedDB = async () => {
             author: '604be7de75ced91c66e126dc',
             location: `${cities[random100 * 10].city}`,
             destination: `${cities[(random100 * 10 + 150) % 1000].city}`,
-            geometry: { 
-                type: 'Point', 
-                coordinates: [ 49.83518, 40.36666 ] },
+            geometry: {
+                type: 'Point',
+                coordinates: [cities[random100 * 10].longitude,
+                                cities[random100 * 10].latitude]
+            },
             images: [
                 {
                     url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/nfbnkmregln1jnxcaizu.jpg',

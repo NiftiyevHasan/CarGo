@@ -12,6 +12,10 @@ const ImageSchema = new Schema({
 ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200');
 });
+
+const opts = { toJSON: { virtuals: true } };
+
+
 const CargoSchema = new Schema({
     type: String,
     images: [ImageSchema],
@@ -40,7 +44,13 @@ const CargoSchema = new Schema({
             ref: "Bid"
         }
     ]
-})
+},opts);
+
+CargoSchema.virtual('properties.popUpMarkup').get(function () {
+    return `<strong><a href="/cargopanel/${this._id}">${this.type}</a></strong>
+    <p> To : ${this.destination}...</p>`
+});
+
 
 CargoSchema.post('findOneAndDelete', async function (deletedCargoData) {
     if (deletedCargoData) {
@@ -53,3 +63,4 @@ CargoSchema.post('findOneAndDelete', async function (deletedCargoData) {
 })
 
 module.exports = mongoose.model('Cargo', CargoSchema);
+
