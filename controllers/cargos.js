@@ -43,10 +43,6 @@ module.exports.showCargo = async (request, response) => {
 
 module.exports.renderEditCargoForm = async (request, response) => {
     const cargo = await Cargo.findById(request.params.id);
-    if (!cargo) {
-        request.flash('error', 'Can not find requested cargo');
-        return response.redirect('/cargopanel');
-    }
     response.render('cargos/edit', { cargo });
 }
 

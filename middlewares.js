@@ -25,6 +25,10 @@ module.exports.validateCargo = (request, respond, next) => {
 
 module.exports.isAuthor = async (request, response, next) => {
     const cargo = await Cargo.findById(request.params.id);
+    if(!cargo){
+        request.flash('error', 'Can not find requested cargo');
+        return response.redirect(`/cargopanel`);
+    } 
     if (!cargo.author.equals(request.user._id)) {
         request.flash('error', 'You dont have permission to perform specified action');
         return response.redirect(`/cargopanel/${request.params.id}`);

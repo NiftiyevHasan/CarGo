@@ -1,5 +1,4 @@
 const User = require('../models/user')
-const passport = require('passport');
 
 
 module.exports.renderRegisterForm = (request, response) => {
@@ -36,6 +35,7 @@ module.exports.login = async (request, response) => {
 
 module.exports.logout = (request, response) => {
     request.logOut();
+    // request.session.destroy();
     request.flash('success', 'Goodbye, looking forward to see you again!')
     response.redirect('/cargopanel');
 }

@@ -48,7 +48,8 @@ Delivery Match-Up Project
 - [x] Client side validation 
 - [x] Server Side Validation
 - [ ] Location Cookies
-- [ ] Prevent DB Injections
-- [ ] Prevent XSS attacks w. JOI ext
-- [ ] Restrict all outside data usage/load/scripts
-- [ ] Address the hacking server in edit route source 512 (important !)
+- [x] Prevent DB Injections
+- [x] Prevent XSS attacks w. JOI ext
+- [x] Restrict all outside data usage/load/scripts
+- [ ] chech for bot access havoc with NSFW content
+- [x] Address the hacking server in edit route source 512 (important !)
