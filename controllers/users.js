@@ -1,5 +1,5 @@
 const User = require('../models/user')
-
+const Cargo = require('../models/cargo')
 
 module.exports.renderRegisterForm = (request, response) => {
     response.render('users/register');
@@ -38,4 +38,10 @@ module.exports.logout = (request, response) => {
     // request.session.destroy();
     request.flash('success', 'Goodbye, looking forward to see you again!')
     response.redirect('/cargopanel');
+}
+
+module.exports.renderDashboard = async (request,response) => {
+ const cargos = await Cargo.find({'author' : request.user._id});
+ console.log(cargos);
+    response.render('users/dashboard', {cargos});
 }

@@ -25,7 +25,10 @@ Delivery Match-Up Project
 - [x] Add new request
 - [ ] View Individual request to bid
 - [x] Routes
-- [ ] Add HomePage
+- [x] Add HomePage
+- [ ] Add Fuzzy Search
+- [ ] Add Notification tab
+- [ ] Add Payment Page
 
 ### Basic Style Updates
 - [x] Add Navbar
@@ -33,9 +36,10 @@ Delivery Match-Up Project
 - [x] Create layouts/boilerplate
 
 ### Users - Auth
-- [ ] Admin
-- [ ] Client
-- [ ] Driver
+- [ ] Admin Page
+- [x] Client Page
+- [ ] Driver Page
+- [ ] Password Reset
 
 ### Database Models
 - [x] Users

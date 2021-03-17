@@ -140,10 +140,9 @@ app.get('/', (request, response) => {
 })
 
 
-
-app.all('*', (request, response, next) => {
-	next(new ExpressError('Page Not Found', 404));
-})
+    app.all('*', (request, response, next) => {
+        next(new ExpressError('Page Not Found', 404));
+    })
 
 app.use((error, request, response, next) => {
 	const { statusCode = 500 } = error;
