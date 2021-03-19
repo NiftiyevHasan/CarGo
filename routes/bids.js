@@ -11,6 +11,7 @@ router.route('/')
         .post(validateBid, isLoggedIn, catchAsync(bids.createBid))
 
 router.route('/:bidId')
+        .put(validateBid, isLoggedIn, catchAsync(bids.updateBid))
         .delete(isLoggedIn, isBidAuthor, catchAsync(bids.deleteBid))
         .get(isLoggedIn, catchAsync(bids.renderUpdateBid))
 

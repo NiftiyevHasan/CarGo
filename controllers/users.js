@@ -7,8 +7,8 @@ module.exports.renderRegisterForm = (request, response) => {
 
 module.exports.register = async (request, response, next) => {
     try {
-        const { username, password, email } = request.body;
-        const user = new User({ username, email });
+        const { username, password, email, role } = request.body;
+        const user = new User({ username, email, role});
         const registeredUser = await User.register(user, password);
         request.login(registeredUser, error => {
             if (error) return next(error);
@@ -28,10 +28,8 @@ module.exports.renderLoginForm = (request, response) => {
 
 module.exports.login = async (request, response) => {
     request.flash('success', `Welcome back, ${request.body.username}`);
-    console.log(request.session.returnTo)
     const redirectUrl = request.session.returnTo || '/cargopanel';
     delete request.session.returnTo;
-    console.log(redirectUrl);
     response.redirect(redirectUrl);
 }
 

@@ -53,3 +53,11 @@ module.exports.validateBid = (request, respond, next) => {
         next()
     }
 }
+
+module.exports.removeOlderBid = async (request,response,next) => {
+    const { id, bidId } = request.params;
+    const cargo = await Cargo.findById(id);
+    const bid = await Bid.findById(bidId);
+
+    
+}

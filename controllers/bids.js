@@ -28,7 +28,7 @@ module.exports.redirectBid = (request,response) => {
 
 module.exports.renderUpdateBid = async (request,response) => {
     const { id, bidId } = request.params;
-    console.log(bidId)
+
     const cargo = await (await Cargo.findById(id).populate({
         path: 'bids',
         populate: {
@@ -36,6 +36,15 @@ module.exports.renderUpdateBid = async (request,response) => {
         }
     }).populate('author'));
 
+
     response.render("bids/updateBidsForm.ejs",{cargo, bidId });
+
+}
+
+module.exports.updateBid = async(request,response) => {
+    const cargo = await Cargo.findById(request.params.id);
+    await Bid.findByIdAndUpdate(request.params.bidId, {...request.body.bid});
+    response.redirect(`/cargopanel/${cargo._id}`)
+
 
 }

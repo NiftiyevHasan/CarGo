@@ -63,7 +63,7 @@
             <div id='map' class='mb-3'></div>
 
             <h3>Leave a Bid</h3>
-            <form action="/cargopanel/<%=cargo._id%>/bids" method="POST" class="mb-3 validated-form" novalidate>
+            <form action="/cargopanel/<%=cargo._id%>/bids/<%=bidId%>?_method=PUT" method="POST" class="mb-3 validated-form" novalidate>
                 <div class="input-group mb-3">
                     <%for (let bid of cargo.bids)  { %>
                         <% if(bidId===bid.id) {%> 
@@ -77,14 +77,16 @@
                     </div>
                 </div>
                 <div class="input-group">
-
+                    <span class="input-group-text" id="bid-amount">$</span>
                             <input type="number" class="form-control" placeholder="Bidding available: Enter bid amount"
-                                aria-label="Bid Amount" aria-describedby="button-addon2" name="bid[amount]"
+                                aria-label="bid-amount" aria-describedby="bid-amount" name="bid[amount]"
                                 value=<%=bid.amount %> required>
 
                         <div class="valid-feedback">
                         Looks good!
                     </div>
+
+
 
                     <%} } %>
                     <button class="btn btn-outline-success" type="submit" id="button-addon2">
@@ -113,7 +115,7 @@
                         <% if(currentUser && bid.author.equals(currentUser._id)){ %>
                             <div class="btn-group align-self-end">
                                 <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>" method="GET" >
-                                    <button class="btn btn-sm btn-secondary ">Revise</button>
+                                    <button class="btn btn-sm btn-outline-success ">Revise</button>
                                 </form>
                                 <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST" class="mb-3 ">
                                     <button class="btn btn-sm btn-danger">Delete</button>

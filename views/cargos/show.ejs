@@ -76,9 +76,9 @@
                     </div>
                 </div>
                 <div class="input-group">
-
-                            <input type="number" class="form-control" placeholder="Bidding available: Enter bid amount"
-                                aria-label="Bid Amount" aria-describedby="button-addon2" name="bid[amount]"
+                    <span class="input-group-text" id="bid-amount">$</span>
+                        <input type="number" class="form-control" placeholder="Bidding available: Enter bid amount"
+                                aria-label="bid-amount" aria-describedby="bid-amount" name="bid[amount]"
                                 required>
 
                         <div class="valid-feedback">
@@ -111,7 +111,7 @@
                         <% if(currentUser && bid.author.equals(currentUser._id)){ %>
                             <div class="btn-group align-self-end">
                                 <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>" method="GET" >
-                                    <button class="btn btn-sm btn-secondary ">Revise</button>
+                                    <button class="btn btn-sm btn-outline-success ">Revise</button>
                                 </form>
                                 <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST" class="mb-3 ">
                                     <button class="btn btn-sm btn-danger">Delete</button>

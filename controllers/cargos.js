@@ -50,6 +50,7 @@ module.exports.renderEditCargoForm = async (request, response) => {
 
 module.exports.updateCargo = async (request, response) => {
     const cargo = await Cargo.findByIdAndUpdate(request.params.id, { ...request.body.cargo });
+    console.dir(request.body.cargo);
     const images = request.files.map(file => ({ url: file.path, filename: file.filename }));
     cargo.images.push(...images);
     await cargo.save();
