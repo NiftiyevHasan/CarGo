@@ -6,7 +6,9 @@ const { cloudinary } = require('../cloudinary')
 
 module.exports.index = async (request, response) => {
     const cargos = await Cargo.find({});
-    response.render('cargos/index', { cargos })
+    const distinctSearchQueryLocation = await Cargo.distinct('location');
+    const distinctSearchQueryDestination = await Cargo.distinct('destination');
+    response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination})
 }
 
 module.exports.renderNewCargoForm = (request, response) => {

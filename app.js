@@ -122,6 +122,9 @@ passport.deserializeUser(User.deserializeUser())
 
 
 app.use((request, response, next) => {
+    if(!['/login','/'].includes(request.originalUrl)){
+        request.session.returnTo = request.originalUrl;
+    }
 	response.locals.currentUser = request.user;
 	response.locals.success = request.flash('success');
 	response.locals.error = request.flash('error');

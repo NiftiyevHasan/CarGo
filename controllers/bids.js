@@ -3,6 +3,7 @@ const Cargo = require('../models/cargo');
 
 module.exports.createBid = async (request, response) => {
     const cargo = await Cargo.findById(request.params.id);
+    //find if this user has any bid in this post and delete it first
     const bid = new Bid(request.body.bid);
     bid.author = request.user._id;
     cargo.bids.push(bid);
@@ -18,4 +19,23 @@ module.exports.deleteBid = async (request, response) => {
     await Bid.findByIdAndDelete(bidId);
     request.flash('success', 'Successfully deleted offered bid');
     response.redirect(`/cargopanel/${id}`);
+}
+
+module.exports.redirectBid = (request,response) => {
+    request.flash('success', 'Please re-submit your offer again.');
+    response.redirect(`/cargopanel/${request.params.id}`);
+}
+
+module.exports.renderUpdateBid = async (request,response) => {
+    const { id, bidId } = request.params;
+    console.log(bidId)
+    const cargo = await (await Cargo.findById(id).populate({
+        path: 'bids',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author'));
+
+    response.render("bids/updateBidsForm.ejs",{cargo, bidId });
+
 }

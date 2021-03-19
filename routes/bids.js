@@ -7,8 +7,11 @@ const { validateBid, isBidAuthor, isLoggedIn } = require('../middlewares');
 
 
 
-router.post('/', validateBid, isLoggedIn, catchAsync(bids.createBid))
+router.route('/')
+        .post(validateBid, isLoggedIn, catchAsync(bids.createBid))
 
-router.delete('/:bidId', isLoggedIn, isBidAuthor, catchAsync(bids.deleteBid))
+router.route('/:bidId')
+        .delete(isLoggedIn, isBidAuthor, catchAsync(bids.deleteBid))
+        .get(isLoggedIn, catchAsync(bids.renderUpdateBid))
 
 module.exports = router;

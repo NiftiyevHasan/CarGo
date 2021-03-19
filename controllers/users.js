@@ -28,9 +28,11 @@ module.exports.renderLoginForm = (request, response) => {
 
 module.exports.login = async (request, response) => {
     request.flash('success', `Welcome back, ${request.body.username}`);
-    const redirectlUrl = request.session.returnTo || '/cargopanel';
+    console.log(request.session.returnTo)
+    const redirectUrl = request.session.returnTo || '/cargopanel';
     delete request.session.returnTo;
-    response.redirect(redirectlUrl);
+    console.log(redirectUrl);
+    response.redirect(redirectUrl);
 }
 
 module.exports.logout = (request, response) => {
@@ -42,6 +44,5 @@ module.exports.logout = (request, response) => {
 
 module.exports.renderDashboard = async (request,response) => {
  const cargos = await Cargo.find({'author' : request.user._id});
- console.log(cargos);
     response.render('users/dashboard', {cargos});
 }

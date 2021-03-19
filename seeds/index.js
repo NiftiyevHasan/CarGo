@@ -37,7 +37,7 @@ const seedDB = async () => {
             },
             images: [
                 {
-                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/nfbnkmregln1jnxcaizu.jpg',
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/dgmvebjmkwkubyw8nrgc.jpg',
                     filename: 'CarGO/nfbnkmregln1jnxcaizu'
                 },
                 {
@@ -45,7 +45,7 @@ const seedDB = async () => {
                     filename: 'CarGO/bekbqyp4lmotwesexwtw'
                 },
                 {
-                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/dgmvebjmkwkubyw8nrgc.jpg',
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/nfbnkmregln1jnxcaizu.jpg',
                     filename: 'CarGO/dgmvebjmkwkubyw8nrgc'
                 },
                 {

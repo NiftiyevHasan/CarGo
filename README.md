@@ -11,7 +11,7 @@ Delivery Match-Up Project
 
 ## Run
 
-	Run `nodemon app.js 
+	Run `nodemon
 	Browse from `http://localhost:3000/
 
 
