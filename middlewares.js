@@ -54,10 +54,22 @@ module.exports.validateBid = (request, respond, next) => {
     }
 }
 
-module.exports.removeOlderBid = async (request,response,next) => {
-    const { id, bidId } = request.params;
-    const cargo = await Cargo.findById(id);
-    const bid = await Bid.findById(bidId);
+module.exports.notBid = async (request,response,next) => {
+    const cargo = await (await Cargo.findById(request.params.id).populate({
+        path: 'bids',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author'));
 
+    for(let post of cargo.bids){
+
+        if(post.author._id.equals(request.user._id)){
+            request.flash('error', 'You have already bid for this cargo post');
+            return response.redirect(`/cargopanel/${request.params.id}`);
+        }
+    }
     
+    next();
+
 }

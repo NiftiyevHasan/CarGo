@@ -3,7 +3,6 @@ const Cargo = require('../models/cargo');
 
 module.exports.createBid = async (request, response) => {
     const cargo = await Cargo.findById(request.params.id);
-    //find if this user has any bid in this post and delete it first
     const bid = new Bid(request.body.bid);
     bid.author = request.user._id;
     cargo.bids.push(bid);
@@ -28,14 +27,12 @@ module.exports.redirectBid = (request,response) => {
 
 module.exports.renderUpdateBid = async (request,response) => {
     const { id, bidId } = request.params;
-
     const cargo = await (await Cargo.findById(id).populate({
         path: 'bids',
         populate: {
             path: 'author'
         }
     }).populate('author'));
-
 
     response.render("bids/updateBidsForm.ejs",{cargo, bidId });
 
@@ -45,6 +42,4 @@ module.exports.updateBid = async(request,response) => {
     const cargo = await Cargo.findById(request.params.id);
     await Bid.findByIdAndUpdate(request.params.bidId, {...request.body.bid});
     response.redirect(`/cargopanel/${cargo._id}`)
-
-
 }

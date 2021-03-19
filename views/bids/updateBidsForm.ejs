@@ -1,32 +1,32 @@
 <% layout('/layout/boilerplate') %>
     <link rel="stylesheet" href="/stylesheets/stars.css">
-    
+
     <div class="row">
         <div class="col-6">
 
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <% cargo.images.forEach((image,i)=> { %>
-                            <div class="carousel-item <%= i===0 ? 'active' : '' %> ">
-                                <img src="<%= image.url %>" class="d-block w-100 card-img-top" alt="...">
-                            </div>
+                <div class="carousel-inner">
+                    <% cargo.images.forEach((image,i)=> { %>
+                        <div class="carousel-item <%= i===0 ? 'active' : '' %> ">
+                            <img src="<%= image.url %>" class="d-block w-100 card-img-top" alt="...">
+                        </div>
 
-                            <% }) %>
-                    </div>
-                    <% if(cargo.images.length> 1) { %>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#cargoCarousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#cargoCarousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                        <% } %>
+                        <% }) %>
                 </div>
-                <div class="card mb-3">
+                <% if(cargo.images.length> 1) { %>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#cargoCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#cargoCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <% } %>
+            </div>
+            <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
                         <%= cargo.type %>
@@ -56,42 +56,41 @@
                         <div class="card-footer text-muted">
                             2 days ago
                         </div>
-                    </div>
+            </div>
         </div>
 
         <div class="col-6 ">
             <div id='map' class='mb-3'></div>
 
             <h3>Leave a Bid</h3>
-            <form action="/cargopanel/<%=cargo._id%>/bids/<%=bidId%>?_method=PUT" method="POST" class="mb-3 validated-form" novalidate>
+            <form action="/cargopanel/<%=cargo._id%>/bids/<%=bidId%>?_method=PUT" method="POST"
+                class="mb-3 validated-form" novalidate>
                 <div class="input-group mb-3">
-                    <%for (let bid of cargo.bids)  { %>
-                        <% if(bidId===bid.id) {%> 
-                    <label class="form-label" for="body">
+                    <%for (let bid of cargo.bids) { %>
+                        <% if(bidId===bid.id) {%>
+                            <label class="form-label" for="body">
 
-                    </label>
-                    <textarea class="form-control" type="text" id="body" name="bid[message]" 
-                        placeholder="Additional Notes" required><%=bid.message %> </textarea>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                            </label>
+                            <textarea class="form-control" type="text" id="body" name="bid[message]"
+                                placeholder="Additional Notes" required><%=bid.message %> </textarea>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
                 </div>
                 <div class="input-group">
                     <span class="input-group-text" id="bid-amount">$</span>
-                            <input type="number" class="form-control" placeholder="Bidding available: Enter bid amount"
-                                aria-label="bid-amount" aria-describedby="bid-amount" name="bid[amount]"
-                                value=<%=bid.amount %> required>
+                    <input type="number" class="form-control" placeholder="Bidding available: Enter bid amount"
+                        aria-label="bid-amount" aria-describedby="bid-amount" name="bid[amount]" value=<%=bid.amount %>
+                    required>
 
-                        <div class="valid-feedback">
+                    <div class="valid-feedback">
                         Looks good!
                     </div>
 
-
-
                     <%} } %>
-                    <button class="btn btn-outline-success" type="submit" id="button-addon2">
-                        <span class="spinner-border spinner-border-sm" role="submit" aria-hidden="true"></span>
-                        Bid Now...
+                        <button class="btn btn-outline-success" type="submit" id="button-addon2">
+                            <span class="spinner-border spinner-border-sm" role="submit" aria-hidden="true"></span>
+                            Bid Now...
 
                 </div>
             </form>
@@ -114,20 +113,21 @@
                         </div>
                         <% if(currentUser && bid.author.equals(currentUser._id)){ %>
                             <div class="btn-group align-self-end">
-                                <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>" method="GET" >
+                                <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>" method="GET">
                                     <button class="btn btn-sm btn-outline-success ">Revise</button>
                                 </form>
-                                <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST" class="mb-3 ">
+                                <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST"
+                                    class="mb-3 ">
                                     <button class="btn btn-sm btn-danger">Delete</button>
                                 </form>
-                                
+
                                 <% } %>
                             </div>
-                           
+                            <% } %>
+
                     </div>
                     <% } %>
         </div>
-        <% } %>
 
     </div>
 
