@@ -43,3 +43,7 @@ module.exports.updateBid = async(request,response) => {
     await Bid.findByIdAndUpdate(request.params.bidId, {...request.body.bid});
     response.redirect(`/cargopanel/${cargo._id}`)
 }
+
+module.exports.redirectFromLoginToBid = (request,response) => {
+    response.redirect(`/cargopanel/${request.params.id}`);
+}

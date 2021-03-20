@@ -8,7 +8,10 @@ const { validateBid, isBidAuthor, isLoggedIn, canBid } = require('../middlewares
 
 
 router.route('/')
+        .get(isLoggedIn, catchAsync(bids.redirectFromLoginToBid))
         .post(validateBid, isLoggedIn, canBid, catchAsync(bids.createBid))
+        
+
 
 router.route('/:bidId')
         .put(validateBid, isLoggedIn, catchAsync(bids.updateBid))
