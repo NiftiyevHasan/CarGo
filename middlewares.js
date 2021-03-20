@@ -24,10 +24,10 @@ module.exports.validateCargo = (request, respond, next) => {
 
 module.exports.isAuthor = async (request, response, next) => {
     const cargo = await Cargo.findById(request.params.id);
-    if(!cargo){
+    if (!cargo) {
         request.flash('error', 'Can not find requested cargo');
         return response.redirect(`/cargopanel`);
-    } 
+    }
     if (!cargo.author.equals(request.user._id)) {
         request.flash('error', 'You dont have permission to perform specified action');
         return response.redirect(`/cargopanel/${request.params.id}`);
@@ -54,22 +54,24 @@ module.exports.validateBid = (request, respond, next) => {
     }
 }
 
-module.exports.notBid = async (request,response,next) => {
+module.exports.canBid = async (request, response, next) => {
     const cargo = await (await Cargo.findById(request.params.id).populate({
         path: 'bids',
         populate: {
             path: 'author'
         }
     }).populate('author'));
-
-    for(let post of cargo.bids){
-
-        if(post.author._id.equals(request.user._id)){
+    if (cargo.author.equals(request.user._id)) {
+        request.flash('error', 'You can not bid on your own cargo post');
+        return response.redirect(`/cargopanel/${request.params.id}`);
+    }
+    for (let post of cargo.bids) {
+        if (post.author._id.equals(request.user._id)) {
             request.flash('error', 'You have already bid for this cargo post');
             return response.redirect(`/cargopanel/${request.params.id}`);
         }
     }
-    
+
     next();
 
 }
