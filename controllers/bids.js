@@ -9,7 +9,7 @@ module.exports.createBid = async (request, response) => {
     await bid.save();
     await cargo.save();
     request.flash('success', 'Successfully posted a new bid');
-    response.redirect(`/cargopanel/${cargo._id}`)
+    response.redirect(307,`/cargopanel/${cargo._id}`)
 }
 
 module.exports.deleteBid = async (request, response) => {
@@ -20,10 +20,6 @@ module.exports.deleteBid = async (request, response) => {
     response.redirect(`/cargopanel/${id}`);
 }
 
-module.exports.redirectBid = (request,response) => {
-    request.flash('success', 'Please re-submit your offer again.');
-    response.redirect(`/cargopanel/${request.params.id}`);
-}
 
 module.exports.renderUpdateBid = async (request,response) => {
     const { id, bidId } = request.params;
@@ -45,5 +41,6 @@ module.exports.updateBid = async(request,response) => {
 }
 
 module.exports.redirectFromLoginToBid = (request,response) => {
+    request.flash('success', 'Please re-submit your offer again.');
     response.redirect(`/cargopanel/${request.params.id}`);
 }

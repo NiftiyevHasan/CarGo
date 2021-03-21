@@ -23,11 +23,12 @@ Delivery Match-Up Project
 - [x] Create a Home Page
 - [x] Create Show Page
 - [x] Add new request
-- [ ] View Individual request to bid
+- [x] View Individual request to bid
 - [x] Routes
 - [x] Add HomePage
 - [ ] Add Fuzzy Search
 - [ ] Add Notification tab
+- [ ] Pagination/infinite scroll
 - [ ] Add Payment Page
 
 ### Basic Style Updates

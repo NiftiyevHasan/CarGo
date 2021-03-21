@@ -4,10 +4,17 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require('../cloudinary')
 
+
 module.exports.index = async (request, response) => {
-    const cargos = await Cargo.find({});
+
     const distinctSearchQueryLocation = await Cargo.distinct('location');
     const distinctSearchQueryDestination = await Cargo.distinct('destination');
+    const cargos = await Cargo.find({});
+    const {searchLocation, searchDestination} = request.query;
+    if(searchDestination){
+        const cargos = await Cargo.find({location: searchLocation, destination: searchDestination});
+        return response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination})
+    }
     response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination})
 }
 

@@ -116,10 +116,18 @@
                                     class="mb-3 ">
                                     <button class="btn btn-sm btn-danger">Delete</button>
                                 </form>
-
-                                <% } %>
                             </div>
-                            <% }} %>
+                                <% }else if(currentUser && cargo.author.equals(currentUser._id)){%>
+                                    <div class="btn-group align-self-end">
+                                        <form action="" method="GET">
+                                            <button class="btn btn-sm btn-outline-success ">Accept</button>
+                                        </form>
+                                        <form action="" method="POST"
+                                            class="mb-3 ">
+                                            <button class="btn btn-sm btn-danger">Decline</button>
+                                        </form>
+                                    </div>
+                            <% }}} %>
 
                     </div>
 

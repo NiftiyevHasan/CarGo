@@ -1,13 +1,13 @@
 <% layout('/layout/boilerplate') %>
 <div id="cluster-map" ></div>
 
-<form action="" >
+<form action="/cargopanel" method="GET" >
     <div class="row">
         <div class="col-5">
-            <label for="exampleDataList" class="form-label"></label>
-            <input class="form-control" list="datalistOptions" id="exampleDataList"
+            <label for="locationDataList" class="form-label"></label>
+            <input class="form-control" list="locationOptions" id="locationDataList" name="searchLocation"
                 placeholder="Enter your location">
-            <datalist id="datalistOptions">
+            <datalist id="locationOptions">
                 <% for (let city of distinctSearchQueryLocation){%>
                     <option value="<%=city%>">
                         <% } %>
@@ -15,16 +15,16 @@
         </div>
         <div class="col-5">
 
-            <label for="exampleDataList" class="form-label"></label>
-            <input class="form-control" list="datalistOptions" id="exampleDataList"
+            <label for="destinationDataList" class="form-label"></label>
+            <input class="form-control" list="destinationOptions" id="destinationDataList" name="searchDestination"
                 placeholder="Enter your destination">
-            <datalist id="datalistOptions">
+            <datalist id="destinationOptions">
                 <% for (let city of distinctSearchQueryDestination){%>
                     <option value="<%=city%>">
                         <% } %>
             </datalist>
         </div>
-<a href="" class="col-2 btn btn-outline-secondary"style="margin-top: 24px;">Search</a>
+        <button class="col-2 btn btn-outline-secondary" value="search" role="submit" style="margin-top: 24px;">Submit</button>
     </div>
 </form>
 
