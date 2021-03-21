@@ -1,5 +1,7 @@
 const User = require('../models/user')
 const Cargo = require('../models/cargo')
+const Bid = require('../models/bid');
+const { request } = require('express');
 
 module.exports.renderRegisterForm = (request, response) => {
     response.render('users/register');
@@ -42,5 +44,10 @@ module.exports.logout = (request, response) => {
 
 module.exports.renderDashboard = async (request,response) => {
  const cargos = await Cargo.find({'author' : request.user._id});
-    response.render('users/dashboard', {cargos});
+ const bids = await Bid.find({'author' : request.user._id});
+    response.render('users/dashboard', { cargos, bids });
+}
+
+module.exports.renderDriverProfile = async (request,response) => {
+    response.render('users/driverprofile')
 }

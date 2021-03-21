@@ -19,6 +19,8 @@ router.route('/login')
 router.get('/logout', users.logout)
 
 router.get('/profile', isLoggedIn, users.renderDashboard)
+router.get('/driverprofile', isLoggedIn, users.renderDriverProfile)
+
 
 
 module.exports = router;

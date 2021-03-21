@@ -44,7 +44,7 @@
                         <%=cargo.weight%> kg
                     </li>
                 </ul>
-                <% if(currentUser && cargo.author.equals(currentUser._id)) { %>
+                <% if(currentUser && ( cargo.author.equals(currentUser._id) || currentUser.role==='admin')) { %>
                     <div class="card-body">
                         <a href="/cargopanel/<%=cargo._id %>/edit" class="card-link btn btn-outline-success">Edit</a>
                         <form class="d-inline" action="/cargopanel/<%=cargo._id%>?_method=DELETE" method="POST">
@@ -91,30 +91,36 @@
             </form>
            
                 <% for (let bid of cargo.bids) { %>
-                    <% if(currentUser && (cargo.author.equals(currentUser._id) || bid.author._id.equals(currentUser._id))){ %>
+                    <% if(currentUser && (cargo.author.equals(currentUser._id) || bid.author._id.equals(currentUser._id) || currentUser.role==='admin')){ %>
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Offer: $ <%=bid.amount %>
+
                             </h5>
                             <h6 class="card-subtitle mb-2 text-muted">
                                 by <%= bid.author.username %>
-                                    <p class="starability-result" data-rating="3">
+                             <%     if(bid.author.role === "driver"){ %>
+                                <a href="/driverprofile">
+                                    <span class="badge bg-warning">&#10003; Verified Driver</span>
+                               <%  } %> 
+                                    <p class="starability-result" data-rating="4">
                                         <!-- bid.author.rating -->
                                     </p>
-                            </h6>
+                            </h6></a>   
+
                             <p class="card-text">
                                 <%=bid.message %>
                             </p>
                         </div>
-                        <% if(currentUser && bid.author.equals(currentUser._id)){ %>
+                        <% if(currentUser && (bid.author.equals(currentUser._id) || currentUser.role==='admin')){ %>
                             <div class="btn-group align-self-end">
                                 <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>" method="GET">
-                                    <button class="btn btn-sm btn-outline-success ">Revise</button>
+                                    <button class="btn btn-sm btn-outline-success ">&#9998; Revise</button>
                                 </form>
                                 <form action="/cargopanel/<%=cargo._id%>/bids/<%=bid._id%>?_method=DELETE" method="POST"
                                     class="mb-3 ">
-                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                    <button class="btn btn-sm btn-danger">&#8998; Delete</button>
                                 </form>
                             </div>
                                 <% }else if(currentUser && cargo.author.equals(currentUser._id)){%>
