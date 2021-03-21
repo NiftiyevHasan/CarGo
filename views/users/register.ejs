@@ -7,8 +7,27 @@
                     <img src="https://images.unsplash.com/photo-1614064849348-46bfef75deb8?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=2550&q=80"
                         alt="" class="card-img-top" />
                     <div class="card-body">
-                        <h5 class="card-title">Register</h5>
+                        <h4 class="card-title mb-4">Register</h4>
                         <form action="/register" method="POST" class="validated-form" novalidate>
+                            
+                            <div class="mb-3 row g-3">
+                                <div class="col">
+                                    <label class="form-label" for="firstname">First Name</label>
+                                  <input type="text" class="form-control" id="firstname" name="firstname" aria-label="First name" required>
+                                  <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="lastname">Last Name</label>
+
+                                  <input type="text" class="form-control" id="lastname" name="lastname"  aria-label="Last name" required>
+                                  <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                </div>
+                              </div>
+
                             <div class="mb-3">
                                 <label class="form-label" for="username">Username</label>
                                 <input class="form-control" type="text" id="username" name="username" required

@@ -1,7 +1,7 @@
 <% layout('/layout/boilerplate') %>
     <link rel="stylesheet" href="/stylesheets/stars.css">
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-6">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
@@ -101,7 +101,7 @@
                             <h6 class="card-subtitle mb-2 text-muted">
                                 by <%= bid.author.username %>
                              <%     if(bid.author.role === "driver"){ %>
-                                <a href="/driverprofile">
+                                <a href="/profile/<%=bid.author.username%>">
                                     <span class="badge bg-warning">&#10003; Verified Driver</span>
                                <%  } %> 
                                     <p class="starability-result" data-rating="4">

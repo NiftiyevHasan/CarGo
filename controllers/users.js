@@ -9,8 +9,8 @@ module.exports.renderRegisterForm = (request, response) => {
 
 module.exports.register = async (request, response, next) => {
     try {
-        const { username, password, email, role } = request.body;
-        const user = new User({ username, email, role});
+        const { username, password, email, role, firstname, lastname, rating = 4.5} = request.body;
+        const user = new User({ username, email, role, firstname, lastname, rating});
         const registeredUser = await User.register(user, password);
         request.login(registeredUser, error => {
             if (error) return next(error);
@@ -45,9 +45,10 @@ module.exports.logout = (request, response) => {
 module.exports.renderDashboard = async (request,response) => {
  const cargos = await Cargo.find({'author' : request.user._id});
  const bids = await Bid.find({'author' : request.user._id});
-    response.render('users/dashboard', { cargos, bids });
+response.render('users/dashboard', { cargos, bids });
 }
 
 module.exports.renderDriverProfile = async (request,response) => {
-    response.render('users/driverprofile')
+    const user = await User.findOne({username: request.params.username})
+    response.render('users/driverprofile', {user});
 }

@@ -10,13 +10,15 @@
                 <img src="https://res.cloudinary.com/dgviuwbga/image/upload/c_scale,h_200/v1616340462/CarGO/dkkwuwtavcqywmv4yd3m.png"
                     class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h4 class="card-title">Driver</h4>
-                    <span class="badge bg-warning">&#10003; Verified Driver</span>
+                    <h4 class="card-title"><%=user.firstname %> <%=user.lastname %>  </h4>
+                    <% if (user.role === 'driver') {%> 
+                        <span class="badge bg-warning">&#10003; Verified Driver</span>
+                    <% } %> 
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
                         card's content.</p>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Rating:  4.8 &#9733;&#9733;&#9733;&#9733;&#9734;</li>
+                    <li class="list-group-item">Rating:  <%=user.rating %> &#9733;&#9733;&#9733;&#9733;&#9734;</li>
                     <li class="list-group-item">Total deliveries: 463</li>
                     <li class="list-group-item">Rated deliveries: 418</li>
                 </ul>
