@@ -26,9 +26,6 @@ Delivery Match-Up Project
 - [x] View Individual request to bid
 - [x] Routes
 - [x] Add HomePage
-- [ ] Add Fuzzy Search
-- [ ] Add Notification tab
-- [ ] Pagination/infinite scroll
 - [ ] Add Payment Page
 
 ### Basic Style Updates
@@ -37,10 +34,9 @@ Delivery Match-Up Project
 - [x] Create layouts/boilerplate
 
 ### Users - Auth
-- [ ] Admin Page
+- [x] Admin Page
 - [x] Client Page
-- [ ] Driver Page
-- [ ] Password Reset
+- [x] Driver Page
 
 ### Database Models
 - [x] Users
@@ -58,3 +54,25 @@ Delivery Match-Up Project
 - [x] Restrict all outside data usage/load/scripts
 - [ ] chech for bot access havoc with NSFW content
 - [x] Address the hacking server in edit route source 512 (important !)
+
+
+### Profile Page
+- [ ] Upload Image as an Avatar with basic format
+- [ ] Password Reset
+- [ ] Notification tab for accepted bids
+- [ ] Preview reviews
+
+
+### Show Page
+- [ ] accept/decline bid logic
+- [ ] Rate driver
+- [x] Fix issue with picture scroller
+
+### Index Page
+- [ ] Infinite Scroll
+- [ ] Fuzzy Logic restrictions
+
+
+
+
+

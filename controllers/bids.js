@@ -5,6 +5,7 @@ module.exports.createBid = async (request, response) => {
     const cargo = await Cargo.findById(request.params.id);
     const bid = new Bid(request.body.bid);
     bid.author = request.user._id;
+    bid.status = 'pending';
     cargo.bids.push(bid);
     await bid.save();
     await cargo.save();
