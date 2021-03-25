@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Bid = require('./bid');
 const user = require('./user');
 const Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 
 
 const ImageSchema = new Schema({
@@ -61,6 +63,8 @@ CargoSchema.post('findOneAndDelete', async function (deletedCargoData) {
         })
     }
 })
+
+CargoSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Cargo', CargoSchema);
 

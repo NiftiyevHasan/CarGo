@@ -6,16 +6,27 @@ const { cloudinary } = require('../cloudinary')
 
 
 module.exports.index = async (request, response) => {
-
     const distinctSearchQueryLocation = await Cargo.distinct('location');
     const distinctSearchQueryDestination = await Cargo.distinct('destination');
-    const cargos = await Cargo.find({});
-    const {searchLocation, searchDestination} = request.query;
-    if(searchDestination){
-        const cargos = await Cargo.find({location: searchLocation, destination: searchDestination});
-        return response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination})
+    const { searchLocation, searchDestination, page } = request.query;
+
+    if (!request.query.page) {
+        const cargos = await Cargo.paginate({});
+        if (searchDestination) {
+            const cargos = await Cargo.paginate({ location: searchLocation, destination: searchDestination });
+            return response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination })
+        }
+        response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination })
+    } else {
+
+        const cargos = await Cargo.paginate({},{page});
+
+        if (searchDestination) {
+            const cargos = await Cargo.paginate({ location: searchLocation, destination: searchDestination });
+            return response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination })
+        }
+        response.status(200).json(cargos);
     }
-    response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination})
 }
 
 module.exports.renderNewCargoForm = (request, response) => {
