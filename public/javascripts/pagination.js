@@ -15,6 +15,8 @@ paginate.addEventListener('click', function (event) {
             }
             const { nextPage } = data;
             this.href = this.href.replace(/page=\d+/, `page=${nextPage}`);
+            cargos.features.push(...data.docs);
+            map.getSource('cargos').setData(cargos);
         });
 })
 
