@@ -19,9 +19,13 @@ router.route('/login')
 router.get('/logout', users.logout)
 
 router.get('/profile', isLoggedIn, users.renderDashboard)
-
 router.get('/profile/:username', isLoggedIn, users.renderDriverProfile)
 
+router.get('/forgot', users.renderForgotForm)
+router.post('/forgot', users.handleForgot)
+
+router.get('/reset/:token', users.renderReset)
+router.post('/reset/:token', users.handleReset)
 
 
 module.exports = router;

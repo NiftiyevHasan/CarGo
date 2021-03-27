@@ -37,23 +37,23 @@ const seedDB = async () => {
             },
             images: [
                 {
-                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/dgmvebjmkwkubyw8nrgc.jpg',
-                    filename: 'CarGO/nfbnkmregln1jnxcaizu'
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1616777099/CarGO/photo-1595246007497-15e0ed4b8d96_msx3jh.jpg',
+                    filename: 'CarGO/photo-1595246007497-15e0ed4b8d96_msx3jh'
                 },
                 {
-                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/bekbqyp4lmotwesexwtw.jpg',
-                    filename: 'CarGO/bekbqyp4lmotwesexwtw'
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1616638908/CarGO/c9sac70bhyorjbq7ffs9.jpg',
+                    filename: 'CarGO/c9sac70bhyorjbq7ffs9'
                 },
                 {
-                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/nfbnkmregln1jnxcaizu.jpg',
-                    filename: 'CarGO/dgmvebjmkwkubyw8nrgc'
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1616638110/CarGO/oodxnztjtdefqkvrzh9k.jpg',
+                    filename: 'CarGO/oodxnztjtdefqkvrzh9k'
                 },
                 {
-                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1615736103/CarGO/mtn6mvdumshvor7bsbvd.jpg',
-                    filename: 'CarGO/mtn6mvdumshvor7bsbvd'
+                    url: 'https://res.cloudinary.com/dgviuwbga/image/upload/v1616288871/CarGO/ahaecrlphsyje7rjsz33.jpg',
+                    filename: 'CarGO/ahaecrlphsyje7rjsz33'
                 }
             ],
-            description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. "
+            description: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form."
         })
         await randomCargo.save();
     }

@@ -10,7 +10,7 @@ module.exports.createBid = async (request, response) => {
     await bid.save();
     await cargo.save();
     request.flash('success', 'Successfully posted a new bid');
-    response.redirect(307,`/cargopanel/${cargo._id}`)
+    response.redirect(`/cargopanel/${cargo._id}`)
 }
 
 module.exports.deleteBid = async (request, response) => {

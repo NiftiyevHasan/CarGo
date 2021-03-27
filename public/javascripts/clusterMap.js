@@ -4,7 +4,9 @@ const map = new mapboxgl.Map({
     container: 'cluster-map',
     style: 'mapbox://styles/mapbox/light-v10',
     center: [-103.59179687498357, 40.66995747013945],
-    zoom: 3
+    zoom: 3,
+    // bearing: 180,
+    // pitch: 40,
 });
 
 map.addControl(new mapboxgl.NavigationControl());
@@ -16,7 +18,7 @@ map.on('load', function () {
     map.addSource('cargos', {
         type: 'geojson',
         // Point to GeoJSON data. This example visualizes all M1.0+ cargos
-        // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+        
         data: cargos,
         cluster: true,
         clusterMaxZoom: 14, // Max zoom to cluster points on

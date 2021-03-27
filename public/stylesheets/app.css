@@ -11,3 +11,7 @@
 .card-body a {
     text-decoration: none;
 }
+
+.dashboardPost {
+    width: 400px; 
+}

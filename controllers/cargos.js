@@ -11,7 +11,7 @@ module.exports.index = async (request, response) => {
     const { searchLocation, searchDestination, page } = request.query;
 
     if (!request.query.page) {
-        const cargos = await Cargo.paginate({});
+        const cargos = await Cargo.paginate({},{limit: 30});
         if (searchDestination) {
             const cargos = await Cargo.paginate({ location: searchLocation, destination: searchDestination });
             return response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination })
@@ -19,7 +19,7 @@ module.exports.index = async (request, response) => {
         response.render('cargos/index', { cargos, distinctSearchQueryLocation, distinctSearchQueryDestination })
     } else {
 
-        const cargos = await Cargo.paginate({},{page});
+        const cargos = await Cargo.paginate({},{page, limit: 30});
 
         if (searchDestination) {
             const cargos = await Cargo.paginate({ location: searchLocation, destination: searchDestination });
