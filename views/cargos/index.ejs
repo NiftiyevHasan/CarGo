@@ -53,11 +53,12 @@
                                         </p>
                                         <p class="card-text">
                                             <small class="text-muted">
-                                               From <%=cargo.location%> to <%=cargo.destination%>
+                                                From <%=cargo.location%> to <%=cargo.destination%>
                                             </small>
                                         </p>
                                         <a class="btn btn-primary" href=" /cargopanel/<%=cargo.id%>"> View
-                                            <%=cargo.type%></a>
+                                            <%=cargo.type%>
+                                        </a>
                                     </div>
                                     <div class="card-footer">
                                         <small class="text-muted">Last updated 3 mins ago</small>
@@ -65,15 +66,12 @@
                     </div>
                 </div>
                 <% } %>
-
         </div>
-
     </div>
     <% if(cargos.nextPage) {%>
         <div class="text-center mt-4 mb-4 ">
             <a href="/cargopanel?page=<%= cargos.nextPage%>" id="paginate" class="btn btn-lg btn-outline-primary"> View
-                More<br>&#128472;	
-                &#128260;&#x21bb</a>
+                More</a>
         </div>
         <% } %>
 
