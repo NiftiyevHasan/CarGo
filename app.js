@@ -15,13 +15,14 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet');
-
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/cargoapp';
+const MongoStore = require('connect-mongo');
 
 const usersRoute = require('./routes/users')
 const cargosRoute = require('./routes/cargos');
 const bidsRoute = require('./routes/bids');
 
-mongoose.connect('mongodb://localhost:27017/cargoapp', {
+mongoose.connect(dbUrl, {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	useUnifiedTopology: true,
@@ -47,9 +48,22 @@ app.use(mongoSanitize({
 	replaceWith: '_'
 }));
 
+const secret = process.env.SECRET || 'thisismybigsecret';
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+	secret,
+    touchAfter: 24 * 60 * 60
+})
+
+store.on('error', (error) => {
+    console.log('SESSION STORE ERROR', error)
+})
+
 const sessionConfig = {
+    store,
 	name: 'session',
-	secret: 'thisismybigsecret',
+	secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {

@@ -65,6 +65,8 @@ Delivery Match-Up Project
 
 ### Show Page
 - [ ] accept/decline bid logic
+- [ ] Remove Bid form for Post owner
+- [ ] Add Chatbox upon accept
 - [ ] Rate driver
 - [x] Fix issue with picture scroller
 
