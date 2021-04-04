@@ -1,10 +1,11 @@
 const Cargo = require('../models/cargo');
 const cities = require('./cities');
 const { type } = require('./seedHelpers');
-
+require('dotenv').config();
 const mongoose = require('mongoose');
+const dbUrl = process.env.DB_URL;
 
-mongoose.connect('mongodb://localhost:27017/cargoapp', {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -27,7 +28,7 @@ const seedDB = async () => {
         const randomCargo = new Cargo({
             type: `${sampleArray(type)}`,
             weight: random100 + 1,
-            author: '6057d91eb91a1a5254d1e80d',
+            author: '606a42d33a5c540015bb1526',
             location: `${cities[random100 * 10].city}`,
             destination: `${cities[(random100 * 10 + 150) % 1000].city}`,
             geometry: {
