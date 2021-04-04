@@ -166,6 +166,8 @@ app.use((error, request, response, next) => {
 	if (!error.message) error.message = 'Ooops Something went wrong!'
 	response.status(statusCode).render('error', { error });
 })
-app.listen(3000, () => {
-	console.log('~~~~~~~~ LISTENING ON PORT 3000! ~~~~~~~~');
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+	console.log(`~~~~~~~~ LISTENING ON PORT ${port}! ~~~~~~~~`);
 })
